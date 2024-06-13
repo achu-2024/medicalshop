@@ -1,1 +1,4 @@
-"# medicalshop-Django Project having 3 modules \n1.Admin,\n2.Shops\n3.User" 
+"# medicalshop-Django Project having 3 modules
+1.Admin,
+2.Shops
+3.User" 
