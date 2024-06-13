@@ -1,0 +1,98 @@
+{% extends 'shops\shp_base.html' %}
+{%load static%}
+{%block nav%}
+
+                   <li><a href="{% url 'index'%}">Home</a></li>
+                    <li><a href="{% url 'allshops'%}">Partners</a></li>
+
+                    <li><a href="{% url 'about'%}">About</a></li>
+                    <li><a href="{% url 'contact'%}">Contact</a></li>
+{%endblock%}
+
+{% block content %}
+
+
+
+
+  <div class="ind">
+    <div class="site-section">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="title-section text-center col-12 testimony">
+            <img src="{% static 'images/faces/face18.jpg' %}" style="float: left;">
+            <blockquote><p>&ldquo;All Pharma Shops registered in our app are valid authorized shops, we have cross checked their license and products befor approve their registration, Our medicines are 100% legal and authorized medicines.
+              New shops can register with their shop license,images and other relevan informations given in our sign-up form,and can login after the verification,&rdquo;</p></blockquote> 
+          </div>
+        </div> 
+        <div class="row">
+          <div class="title-section text-center col-12">
+            <h2 class="text-uppercase">Our Partners</h2>
+          </div>
+        </div> 
+
+
+         <div class="row">
+          
+          <div class="col-md-12" style="overflow: auto;height:300px">
+     
+  
+          {% for i in shps %}
+
+          <div style="width:fit-content">
+            <div style= "display:inline-block;padding: 55px;">
+                <a href="{{i.owner_pic.url}}"><img src="{{i.owner_pic.url}}" alt="" style="height: 200px; width: 200px">
+                </a>
+            </div>
+            <div style= "display:inline-block;padding: 15px;">
+                <a href="{{i.my_shop.shop_pic.url}}">
+          <img src="{{i.my_shop.shop_pic.url}}" alt="Image"style="height: 200px; width: 200px;">
+          <h3></a>
+            </div>
+         
+
+                  <div style= "display:inline-block;padding: 15px;vertical-align:middle;width:fit-content">
+                    
+                    <h6>Shop-{{i.my_shop.shopname}}<br>
+                      Owner-{{i.shp_owner}}<br>
+                      Ph:-{{i.my_shop.phone}}<br>
+                      e-mail:-{{i.my_shop.email}}
+                    </h6>               
+                      </div>
+
+                      <div style= "display:inline-block;padding: 15px;vertical-align: top;width:fit-content;margin-left: 2%;">
+                   
+
+
+                      <blockquote>
+                        
+                        <p>&ldquo;{{i.shop_description}}&rdquo;</p>
+                        
+                      </blockquote>  
+                      <p>&mdash; {{i.my_shop.shopname}}'s features</p>
+                      </div>
+        </div>
+    
+       
+                    
+      <hr>
+        {% endfor %}
+
+      
+    </div>
+
+    
+   
+    </div>
+
+ 
+
+    
+  </div>
+
+
+
+  
+</div>
+  {% endblock %}
+
+    

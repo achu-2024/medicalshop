@@ -1,0 +1,102 @@
+{% extends 'myadmin/adbase.html' %}
+
+
+{% block content %}
+{%load static%}
+
+  <body id="reportsPage">
+  
+        <div class="container">
+            <div class="row">
+                <div class="tm-bg-primary-dark tm-block tm-block-products" >
+                        <div class="tm-product-table-container">
+                            <table class="table table-hover tm-table-large tm-product-table" style="background-color: white;">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">SHOP-NAME</th>
+                                        <th scope="col">EMAIL</th>
+                                        <th scope="col">PHONE</th>
+                                        <th scope="col">SHOP-USER-NAME</th>
+                                    
+                                        
+                                    </tr> 
+                                    </thead>
+                                    <tbody>
+                                    {% for i in obj %}
+                                    <tr>
+                                        <td class="tm-product-name">{{i.shopname}}</td>
+                                        <td class="tm-product-name">{{i.email}}</td>
+                                        <td class="tm-product-name">{{i.phone}}</td>
+                                        <td class="tm-product-name">{{i.username}}</td>
+                                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                            </table>
+                        </div>
+           
+                </div>
+            </div>
+        </div>
+            <hr>
+            <div class="container-fluid">
+            <div class="row">
+                {% if tot.1 != 0 %}
+                <div class="col-md-4" style="overflow: auto;height:400px;">
+                    
+                    <div class="bg-secondary text-white"><h1 class="text-center">Pending Shops</h1>
+                        <h3>
+                        {% for i in obj %}
+                        {% if i.permission == 'pending' %}
+                        <hr style="color:red;height:10px">
+                        {{i.shopname}} - {{i.phone}} - {{i.email}}
+                        <hr>
+                        {% endif %}                        
+                        {% endfor %}
+                    </h3>
+
+                    </div>
+                </div>
+                {% endif %}
+                {% if tot.0 != 0 %}
+                <div class="col-md-4"  style="overflow: auto;height:400px;">
+                    <div class="bg-success text-white"><h1 class="text-center">Approved Shops</h1>
+                        <h3>
+                            {% for i in obj %}
+                            {% if i.permission == 'approved' %}
+                            <hr style="color:red;height:10px">
+                            {{i.shopname}} - {{i.phone}} - {{i.email}}
+                            <hr>
+                            {% endif %}                        
+                            {% endfor %}
+                        </h3>
+                
+                    </div>
+                </div>
+                {% endif %}
+                {% if tot.2 != 0 %}
+                <div class="col-md-4"  style="overflow: auto;height:400px;">
+                    <div class="bg-secondary text-white"><h1 class="text-center">Rejected Shops</h1>
+                        <h3>
+                            {% for i in obj %}
+                            {% if i.permission == 'rejected' %}
+                            <hr style="color:red;height:10px">
+                            {{i.shopname}} - {{i.phone}} - {{i.email}}
+                            <hr>
+                            
+                            {% endif %}                        
+                            {% endfor %}
+                        </h3>
+                
+                    </div>
+                </div>
+                 {% endif %}   
+                
+            </div>
+        </div>
+        
+
+  
+  </body>
+</html>
+
+{% endblock %}

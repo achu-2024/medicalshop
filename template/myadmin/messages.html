@@ -1,0 +1,100 @@
+{% extends 'myadmin/adbase.html' %}
+
+
+{% block content %}
+{%load static%}
+
+<style>
+  .shop:hover{
+    transform:scale(4,4)
+  }
+</style>
+
+  <body id="reportsPage">
+  
+          <div class="container">
+            <div class="row">
+          <div class="tm-bg-primary-dark" style="height:300px">
+            <div class="tm-product-table-container">
+              <h2 class="tm-block-title">USER-MESSAGES</h2>
+              <table class="table table-hover tm-table-small tm-product-table" style="background-color: white;">
+                <thead>
+                  <tr>
+                    <th scope="col">NAME</th>
+                    <th scope="col">MOBILE NO.</th>
+                    <th scope="col">EMAIL</th>
+                    <th scope="col">MESSAGE</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in l %}
+                  <tr>
+                    <td class="tm-product-name">{{i.name}}</td>
+                    <td class="tm-product-name">{{i.mobile}}</td>
+                    <td class="tm-product-name">{{i.email}}</td>
+                    <td class="tm-product-name">{{i.message}}</td>
+                    <td class="tm-product-name"><a href="reply/{{i.id}}">Reply</a></td>
+                    <td class="tm-product-name"><a href="deletemsg/{{i.id}}">Delete</a></td>
+                      
+                  </tr>
+                  
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+           
+          </div>
+    
+
+
+    <div class="row mt-5">
+
+      <div class="tm-bg-primary-dark" style="height:300px">
+        <div class="tm-product-table-container">
+          <h2 class="tm-block-title">SHOP-MESSAGES</h2>
+          {% if sh %}
+          <table class="table table-hover tm-table-small tm-product-table" style="background-color: white;">
+            <thead>
+              <tr>
+                <th scope="col">SHOP-DETAILS</th>
+                <th scope="col">SHOP-NAME</th>
+                <th scope="col">SHOP-PIC</th>
+                <th scope="col">LICENSE</th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in sh %}
+              <tr>
+                <td class="tm-product-name">user-{{i.my_shop.username}}<br>phone-{{i.my_shop.phone}}<br>e-mail-{{i.my_shop.email}}<br>Shop-{{i.my_shop.shopname}}</td>
+                <td class="tm-product-name">{{i.shopname}}</td>
+                <td class="tm-product-name"><a href="{{i.shop_pic.url}}" download=""> <img class="shop" src="{{i.shop_pic.url}}" alt="" style="height:100px;width:100px;transition:0.15s"> </a></td>
+                <td class="tm-product-name"><a href="{{i.shop_license.url}}" download=""> <img class="shop" src="{{i.shop_license.url}}" alt="" style="height:100px;width:100px;transition:0.15s"> </a> </td>
+                <td class="tm-product-name"><a href="detlschange/{{i.id}}" style="border:2px solid red;background-color: beige;padding:10px;text-decoration: none;">CHANGE</a></td>
+                
+                  
+              </tr>
+              
+            {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <h2>No Updates from Shop users</h2>
+          {% endif %}
+        </div>
+       
+      </div>
+
+
+
+
+    </div>
+    </div></div>
+  
+  </body>
+</html>
+
+{% endblock %}

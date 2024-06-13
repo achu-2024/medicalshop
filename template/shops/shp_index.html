@@ -1,0 +1,128 @@
+{% extends 'shops\shp_base.html' %}
+{%load static%}
+{%block nav%}
+
+                   <li class="active"><a href="{% url 'index'%}">Home</a></li>
+                    <li><a href="{% url 'allshops'%}">Partners</a></li>
+
+{%endblock%}
+
+{% block content %}
+<style>
+#shop:hover{
+  transform:scale(2,2);
+  z-index: -1;
+  backface-visibility:visible;
+
+}
+
+</style>
+
+  <div class="ind">
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="title-section text-center col-12 testimony">
+            <img src="{% static 'images/faces/face18.jpg' %}" style="float: left;">
+            <blockquote><p>&ldquo;All Pharma Shops registered in our app are valid authorized shops, we have cross checked their license and products befor approve their registration, Our medicines are 100% legal and authorized medicines.
+              New shops can register with their shop license,images and other relevan informations given in our sign-up form,and can login after the verification,&rdquo;</p></blockquote> 
+          </div>
+        </div> 
+        <div class="row">
+          <div class="title-section text-center col-12">
+            <h2 class="text-uppercase">Our Partners</h2>
+          </div>
+        </div> 
+
+
+         <div class="row">
+          
+          <div class="col-md-12 block-3 products-wrap">
+            <div class="nonloop-block-3 no-direction owl-carousel">
+        
+              {% for i in shps %}
+              <div class="testimony border border-success"  >
+
+          
+  
+          <blockquote>
+            <a href="{{i.shop_pic.url}}"> <img src="{{i.shop_pic.url}}" alt="Image" class="img-fluid w-35 mb-4 rounded" id="shop" style="height:150px;transition:0.15s"></a>
+            <p>&ldquo;{{i.shopname}}&rdquo;<br>&ldquo;{{i.phone}}&rdquo; </p>
+            
+          </blockquote>  
+          <p>&mdash; {{i.email}}</p>
+       
+                    
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+    
+   
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="title-section text-center col-12">
+            <h2 class="text-uppercase">Testimonials</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 block-3 products-wrap">
+            <div class="nonloop-block-3 no-direction owl-carousel">
+        
+              <div class="testimony">
+                <blockquote>
+                  <img src="{% static 'images/person_1.jpg'%}" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
+                  <p>&ldquo;Your staff deliver consistently great customer service! Very professional and friendly and will go the extra mile to price match and keep their customers happy. The drive through is so advanced and amazing especially during this pandemic! The staff is always friendly and helpful! Thanks for the truly excellent care!&rdquo;</p>
+                </blockquote>
+
+                <p>&mdash; Kelly Holmes</p>
+              </div>
+        
+              <div class="testimony">
+                <blockquote>
+                  <img src="{% static 'images/person_2.jpg'%}" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
+                  <p>&ldquo;Excellent kind staff, clean observes social distancing. Got my vaccine here and after the pharmacist found out I waited 6 hrs for my shot, he gave me bottled water so I would be comfortable. A terrific pharmacy-app.&rdquo;</p>
+                </blockquote>
+              
+                <p>&mdash; Rebecca Morando</p>
+              </div>
+        
+              <div class="testimony">
+                <blockquote>
+                  <img src="{% static 'images/person_3.jpg'%}" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
+                  <p>&ldquo;Professional and genuinely caring service. Great team of ppl who know customer service. Their handling of the Covid-19 vaccine appointments and how they administered the shots was super. Our prescriptions have already been transferred!!&rdquo;</p>
+                </blockquote>
+              
+                <p>&mdash; Lucas Gallone</p>
+              </div>
+        
+              <div class="testimony">
+                <blockquote>
+                  <img src="{% static 'images/person_4.jpg'%}" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
+                  <p>&ldquo;The Team at your pharmacy are exceptional. They show a level of customer care that I haven’t received anywhere else. They work for your business and interact with you on a personal level that is unmatched. The attention to detail they show means so much when dealing with medications. Love them!&rdquo;</p>
+                </blockquote>
+              
+                <p>&mdash; Andrew Neel</p>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+
+
+
+  
+</div>
+  {% endblock %}
+
+    

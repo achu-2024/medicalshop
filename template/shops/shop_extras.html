@@ -1,0 +1,231 @@
+{% extends 'shops\shp_base.html' %}
+
+{% block head1 %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/login.css'%}">
+<script src="{% static 'js/login.js'%}"></script>
+
+
+{% endblock %}
+
+
+{%block nav%}
+
+
+                   <li><a href="{% url 'index'%}">Home</a></li>
+                    <li><a href="{% url 'shop'%}">Store</a></li>
+
+                    <li  class="active"><a href="{% url 'shop_extras' request.session.shpid.0 %}">My Profile</a></li>
+                    <li><a href="{% url 'myproduct'%}">Products</a></li>
+{%endblock%}
+
+{% block content %}
+
+
+<style>
+	.error-message {
+color: red;
+margin-top: 5px;
+}
+
+.coming-going-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:red;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0; /* Initially hidden */
+    animation: fadeInOut 2s infinite; /* Apply fadeInOut animation */
+    margin-left: 40%;
+  }
+
+  /* Animation to fade in and out */
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+</style>
+
+{% if det %}
+<div class="site-section">
+  {% if tot %}
+  <button type="button" class="coming-going-btn" data-toggle="modal" data-target="#exampleModal">STOCK ALERT - {{tot}}</button>
+  {% endif %}
+  <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="h3 mb-5 text-black">Profile</h2>
+        </div>
+        <div class="col-md-12">
+  
+          <form>
+            {% csrf_token %}
+
+  
+            <div class="p-3 p-lg-5 border">
+             
+            <div>
+                <div style= "display:inline-block;padding: 15px;">
+                    <a href="{{det.owner_pic.url}}"><img src="{{det.owner_pic.url}}" alt="" style="height: 200px; width: 200px">
+                    <h3>Owner_Pic</h3></a>
+                </div>
+                <div style= "display:inline-block;padding: 15px;">
+                    <a href="{{shp.shop_pic.url}}">
+              <img src="{{shp.shop_pic.url}}" alt="Image"style="height: 200px; width: 200px;">
+              <h3>Shop_Pic</h3></a>
+                </div>
+                <div style= "display:inline-block;padding: 15px;">
+                    <a href="{{shp.shop_license.url}}">
+                    <img src="{{shp.shop_license.url}}" alt="Image"style="height: 200px; width: 200px;">
+                    <h3>Shop_License</h3></a>
+                      </div>
+            </div>
+          
+              <div class="form-group row">
+                  <div class="col-md-12">
+                    <label for="email" class="text-black">Owner-Name<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" value="{{det.shp_owner}}" name="name" disabled>
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                      <label for="email" class="text-black">Shop-Name<span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" value="{{shp.shopname}}" name="name" disabled>
+                    </div>
+                  </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="name" class="text-black">Phone<span class="text-danger">*</span></label>
+                  
+                  <input id="phoneNumber" type="text" class="form-control" value="{{det.my_shop.phone}}" name="phone" pattern = "[6-9][0-9]{9}" disabled>
+                  <div id="phoneNumberError" class="error-message" style="display: none;"></div>
+              
+              </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="email" class="text-black">Email<span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" value="{{det.my_shop.email}}" name="email" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="email" class="text-black">Description<span class="text-danger">*</span></label>
+                  <textarea name="" id="" class="form-control" cols="30" rows="5" disabled>{{det.shop_description}}</textarea>
+                  
+                </div>
+              </div>
+             
+   
+
+              
+
+              
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  {% else %}
+           
+            
+
+    <div class="container mt-5">
+        <label class="text-center font-weight-bold text-uppercase" style="font-size: larger;">Fill The Following Details </label>
+	    <div class="row">
+            <div class="col-md-5 mt-5" style="width:800px;align-items: center;">
+
+                <div class="login-form">
+                    
+                
+                
+                    <div class="sign-up-htm"  style="margin-bottom: 2%;">
+
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                        <div class="group">
+                            <label for="shop" class="label">Shop-Owner-Name</label>
+                            <input id="shop" type="text" class="input" name="name" placeholder="shop-owner-name" required>
+                        </div>
+                        <div class="group">
+                            <label for="email" class="label">Shop-Description</label>
+                            <textarea name="desc" id="" cols="30" rows="10" 
+                            style="padding: 15px 20px;
+                            border-radius: 25px;
+                            border: solid 0.5px rgba(81, 234, 234, 0.9);
+                            background: white;width:400px"></textarea>
+                        </div>
+                
+                        <div class="group">
+                            <label for="pic1" class="label">Owner Image</label>
+                            <input id="pic1" type="file" class="input" data-type="file" name="owner_pic" required>
+                        </div>
+                    
+                        
+                        <div  class="group">
+                            <input type="submit" class="button" value="Sign Up">
+                        </div>
+                    </form>		
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md=7 p-5">
+                <h2>Here You have to enter the <br> additional informations such as <br>
+                Owner's Name,Shop's description<br>and owner's pic.., to complete the<br>registration details</h2>  
+                
+                <h3>You can edit these informations and <br> signup datas other than <br>username,shop-pic  <br>
+                shop-name & shop-license pic</h3>
+                <h3>Send those datas and proof to <br> admin,Only admin can edit  shop's name<br>license
+                    and pic</h3>
+            </div>
+
+    </div>
+    
+</div>
+
+{% endif %}
+
+<!-- MODAL -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top:10%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">UPDATE STOCKS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {% for i in stck %}
+        <form action="{% url 'stckupdate' i.id %}" method="post">
+          {% csrf_token %}
+        <div>
+        <h6 style="display:inline-block;margin-right:3px;width:180px">{{i.name}}/stck-{{i.stck}}</h6>
+        <img src="{{i.image.url}}" alt="" style="height:50px;width:50px;display:inline-block;margin-right:8px">
+        <input type="text" placeholder="new stock" style="width:80px;margin-right: 20px;" name="stck">
+        <input type="submit" class="btn btn-success btn-sm ms-5" value="add stock">
+      </div>
+    </form>
+        {% endfor %}
+
+
+      </div>
+      <div class="modal-footer" style="background-color: cadetblue;">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

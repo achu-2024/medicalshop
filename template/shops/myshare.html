@@ -1,0 +1,70 @@
+{% extends 'shops\shp_base.html' %}
+
+{% block head1 %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/login.css'%}">
+<script src="{% static 'js/login.js'%}"></script>
+
+{% endblock %}
+
+
+{%block nav%}
+                   <li><a href="{% url 'index'%}">Home</a></li>
+                    <li><a href="{% url 'shop'%}">Store</a></li>
+
+                    <li><a href="{% url 'shop_extras' request.session.shpid.0 %}">My Profile</a></li>
+                    <li><a href="{% url 'myproduct'%}">Products</a></li>
+{%endblock%}
+
+{% block content %}
+
+                <div class="col-12 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                        <h2 class="tm-block-title">Orders List</h2>
+                        <table class="table" style="background-color: white;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">USER DETAILS</th>
+                                    <th scope="col">PRODUCT DETAILS</th>
+                                    <th scope="col">AMOUNT</th>
+                                    <th scope="col">PAYMENT MODE</th>
+                                    <th scope="col">DATE</th>
+                                    <th scope="col">TRACKING NO</th>
+                                    <th scope="col">STATUS</th>
+                                   
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in o %}
+                                <tr>
+                                    <th scope="row"><b>{{i.orderdet.user.name}}</b><br>{{i.orderdet.user.email}}<br>
+                                        {{i.orderdet.user.phone}}</th>
+                                    <td><b>{{i.product.name}}</b><br>Rate/unit-{{i.product.discount}}<br>
+                                    purchased quantity-{{i.quantity}}</td>
+                                    <td><b>{{i.quantity}} * {{i.price}} = {% widthratio i.quantity 1 i.price %}</b></td>
+                                    <td><b>{{i.orderdet.payment_mode}}</b></td>
+                                    
+                                    <td>{{i.orderdet.created_at}}</td>
+                                    <td>{{i.orderdet.tracking_no}}</td>
+                                    <td>
+                                        {{i.orderdet.status}}
+                                    </td>
+                                    <td>
+                                        
+                                      </td>
+                                </tr>
+                                {% endfor %}
+
+                          
+
+                            </tbody>
+                        </table>
+                        <hr><hr>
+                        <p>TOTAL : {{tot}}</p>
+                    </div>
+                </div>
+    
+                
+{% endblock %}

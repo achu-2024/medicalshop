@@ -1,0 +1,115 @@
+{% extends 'myadmin/adbase.html' %}
+
+
+{% block content %}
+{%load static%}
+
+<div class="container-fluid">
+    <div class="row">
+                <div class="col-12 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                        <h2 class="tm-block-title">Orders List</h2>
+                        <table class="table" style="background-color: white;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">USERNAME</th>
+                                    <th scope="col">EMAIL</th>
+                                    <th scope="col">LOCATION</th>
+                                    <th scope="col">AMOUNT</th>
+                                    <th scope="col">PAYMENT MODE</th>
+                                    <th scope="col">DATE</th>
+                                    <th scope="col">TRACKING NO</th>
+                                    <th scope="col">STATUS</th>
+                                    <th scope="col">STATUS UPDATE</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in o %}
+                                <tr>
+                                    <th scope="row"><b>{{i.user.username}}</b></th>
+                                    <td><b>{{i.email}}</b></td>
+                                    <td><b>{{i.city}}</b></td>
+                                    <td><b>{{i.total_price}}</b></td>
+                                    <td><b>{{i.payment_mode}}</b></td>
+                                    <td>{{i.created_at}}</td>
+                                    <td>{{i.tracking_no}}</td>
+                                    <td>
+                                        {{i.status}}
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="statusup/{{i.id}}">
+                                          {% csrf_token %}
+                                          <select name="status">
+                                            <option value="Pending" {% if i.status == "Pending" %}selected{% endif %}>Pending</option>
+                                            <option value="Out for shipping" {% if i.status == "Out for shipping" %}selected{% endif %}>Out for shipping</option>
+                                            <option value="Delivered" {% if i.status == "Delivered" %}selected{% endif %}>Delivered</option>
+                                            <option value="Cancelled" {% if i.status == "Cancelled" %}selected{% endif %}>Cancelled</option>
+                                          </select>
+                                          <button type="submit">Update</button>
+                                        </form>
+                                      </td>
+                                </tr>
+                                {% endfor %}
+
+                              
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+    
+    </div>
+    <hr><hr><h2>SHOPS ECONOMY</h2><hr><hr>
+    <div class="col-12 tm-block-col">
+        <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+            <h2 class="tm-block-title">SHOPS-DETILS</h2>
+            <table class="table table table-hover tm-table-small tm-product-table" style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th scope="col">USER DETAILS</th>
+                        <th scope="col">PRODUCT DETAILS</th>
+                        <th scope="col">AMOUNT</th>
+                        <th scope="col">PAYMENT MODE</th>
+                        <th scope="col">DATE</th>
+                        <th scope="col">TRACKING NO</th>
+                        <th scope="col">STATUS</th>
+                        <th> TOTAL</th>
+                       
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in sh %}
+                    <tr>
+                        <th scope="row"><b>{{i.orderdet.user.name}}</b><br>{{i.orderdet.user.email}}<br>
+                            {{i.orderdet.user.phone}}</th>
+                        <td><b>{{i.product.my_shop.shopname}}</b><br>{{i.product.name}}<br>Rate/unit-{{i.product.discount}}<br>
+                        purchased quantity-{{i.quantity}}</td>
+                        <td><b>{{i.quantity}} * {{i.price}}</b></td>
+                        <td><b>{{i.orderdet.payment_mode}}</b></td>
+                        
+                        <td>{{i.orderdet.created_at}}</td>
+                        <td>{{i.orderdet.tracking_no}}</td>
+                        <td>
+                            {{i.orderdet.status}}
+                        </td>
+                        <td>
+                            
+                                {% widthratio i.quantity 1 i.price %}
+                          </td>
+                    </tr>
+                    {% endfor %}
+
+              
+
+                </tbody>
+            </table>
+            <hr><hr>
+            <p style="background-color: beige;text-align: center;font-size: larger;">GRAND-TOTAL : {{tot}}</p></div>
+    </div>
+
+</div>
+
+</div>
+                           
+{% endblock %}

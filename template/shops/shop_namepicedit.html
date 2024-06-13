@@ -1,0 +1,122 @@
+{% extends 'shops\shp_base.html' %}
+
+
+{%load static%}
+{%block nav%}
+
+                   <li><a href="{% url 'index'%}">Home</a></li>
+                    <li><a href="{% url 'shop'%}">Partners</a></li>
+                    <li><a href="{% url 'shop_extras' request.session.shpid.0 %}">My Profile</a></li>
+                    <li><a href="{% url 'myproduct'%}">Products</a></li>
+{%endblock%}
+
+{% block content %}
+
+    <style>
+        .error-message {
+    color: red;
+    margin-top: 5px;
+    }
+    
+    </style>
+
+
+<div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="h3 mb-5 text-black">Change Details</h2>
+        </div>
+        <div class="col-md-12">
+  
+          <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+  
+            <div class="p-3 p-lg-5 border">
+              <div class="form-group row">
+                  <div class="col-md-12">
+                    <label for="email" class="text-black">Shop-Name<span class="text-danger">*</span></label>
+                    <input type="text" id="password_input" class="form-control" name="shopname" value="{{usr.shopname}}" required>
+           
+                  </div>
+        
+                </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="name" class="text-black">Shop-Image <span class="text-danger">*</span></label>
+                  <input type="file" class="form-control" name="shop_pic" >
+                
+                </div>
+
+                <div class="col-md-6">
+                  <label for="name" class="text-black">Shop-Current Image <span class="text-danger">*</span></label>
+                 <img src="{{usr.shop_pic.url}}" alt="" style="height:100px;width:100px">
+                </div>
+              </div>
+
+              <div class="form-group row">               
+
+                <div class="col-md-6">
+                  <label for="name" class="text-black">Shop-License <span class="text-danger">*</span></label>
+                  <input type="file" class="form-control" name="shop_license" >
+                </div>
+
+                <div class="col-md-6">
+                  <label for="name" class="text-black">Shop-Licenset Image <span class="text-danger">*</span></label>
+                 <img src="{{usr.shop_license.url}}" alt="" style="height:100px;width:100px">
+                </div>
+
+              </div>
+             
+            
+
+              <div class="form-group row">
+                <div class="col-lg-12">
+                  <input type="submit" class="btn btn-primary btn-lg btn-block" value="Edit the details">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="site-section bg-primary">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="text-white mb-4">Offices</h2>
+        </div>
+        <div class="col-lg-4">
+          <div class="p-4 bg-white mb-3 rounded">
+            <span class="d-block text-black h6 text-uppercase">New York</span>
+            <p class="mb-0">203 Fake St. Mountain View, San Francisco, California, USA</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="p-4 bg-white mb-3 rounded">
+            <span class="d-block text-black h6 text-uppercase">London</span>
+            <p class="mb-0">203 Fake St. Mountain View, San Francisco, California, USA</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="p-4 bg-white mb-3 rounded">
+            <span class="d-block text-black h6 text-uppercase">Canada</span>
+            <p class="mb-0">203 Fake St. Mountain View, San Francisco, California, USA</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+
+
+
+
+{% endblock %}

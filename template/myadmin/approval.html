@@ -1,0 +1,94 @@
+{% extends 'myadmin/adbase.html' %}
+
+
+{% block content %}
+{%load static%}
+
+  <body id="reportsPage">
+  
+ 
+ 
+
+            <hr>
+            <div class="container-fluid">
+                <div class="col-12 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                        <h2 class="tm-block-title" style="display: inline-block ;">Shops Details</h2>
+
+                        <form method="post" action="" style="display: inline-block ;margin-left: 30%;">
+                            {% csrf_token %}
+                            <select name="status" style="height:50px;font-size: larger;">
+                              <option value="pending" >Pending Shops</option>
+                              <option value="approved">Approved Shops</option>
+                              <option value="rejected">Rejected Shops</option>
+                       
+                            </select>
+                            <button type="submit" style="background-color:yellow;color:red;height: 50px;padding:8px;font-size: larger;">Check Status</button>
+                          </form>
+
+
+                        <table class="table" style="background-color: white;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SHOP-DETAILS</th>
+                                    <th scope="col">SHOP_PIC</th>
+                                    <th scope="col">SHOP_LICENSE</th>
+                                    <th scope="col">OWNER_PIC</th>
+                                    <th scope="col">STATUS</th>
+                                    <th scope="col">STATUS UPDATE</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in o %}
+                                <tr>
+                                    <th scope="row">
+                                        Shop-Name : {{i.my_shop.shopname}}<br>
+                                        Owner-Name: {{i.shp_owner}}<br>
+                                        User-Name : {{i.my_shop.username}}<br>
+                                        Email     : {{i.my_shop.email}}<br>
+                                        Phone     : {{i.my_shop.phone}}
+                                    </th>
+                                    
+                                    <td> <a href="{{i.my_shop.shop_pic.url}}"> <img src="{{i.my_shop.shop_pic.url}}" style="height:150px;width:150px"></a> </td>
+                                    <td>  <a href="{{i.my_shop.shop_license.url}}"> <img src="{{i.my_shop.shop_license.url}}" style="height:150px;width:150px"> </a></td>
+                                    <td>  <a href="{{i.owner_pic.url}}"> <img src="{{i.owner_pic.url}}" style="height:150px;width:150px"> </a></td>
+                                
+                                    <td>
+                                        <h3>{% if i.my_shop.permission == "pending" %}
+                                               <span style="background-color:cadetblue;color:yellow">{{i.my_shop.permission}}</span> </h3>
+                                               {% elif i.my_shop.permission == "approved" %}
+                                               <span style="background-color:green;color:yellow">{{i.my_shop.permission}}</span> </h3>
+                                               {% else %}
+                                               <span style="background-color:red;color:yellow">{{i.my_shop.permission}}</span> </h3>
+                                               {% endif %}
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="permissionup/{{i.my_shop.id}}">
+                                          {% csrf_token %}
+                                          <select name="status" style="height:50px;font-size: larger;">
+                                            <option value="pending" {% if i.my_shop.permission == "pending" %}selected{% endif %}>Pending</option>
+                                            <option value="approved" {% if i.my_shop.permission == "approved" %}selected{% endif %}>Approved</option>
+                                            <option value="rejected" {% if i.my_shop.permission == "rejected" %}selected{% endif %}>Rejected</option>
+                                     
+                                          </select>
+                                          <button type="submit" style="background-color: green;color:aqua;height: 50px;padding:8px">Update</button>
+                                        </form>
+                                      </td>
+                                </tr>
+                                {% endfor %}
+
+                         
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        
+
+  
+  </body>
+</html>
+
+{% endblock %}

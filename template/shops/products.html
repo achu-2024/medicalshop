@@ -1,0 +1,90 @@
+{% extends 'shops\shp_base.html' %}
+{%load static%}
+{%block nav%}
+
+                   <li><a href="{% url 'index'%}">Home</a></li>
+                    <li><a href="{% url 'allshops'%}">Partners</a></li>
+
+                    <li><a href="{% url 'shop_extras' request.session.shpid.0 %}">My Profile</a></li>
+                    <li  class="active"><a href="{% url 'myproduct'%}">Products</a></li>
+{%endblock%}
+
+{% block content %}
+
+
+
+
+  <div class="ind">
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="title-section text-center col-12 testimony">
+            <img src="{{own.owner_pic.url}}" style="float: left;">
+            <blockquote><p> <span style="float:left">Hi I am {{own.shp_owner}}....</span><br>&ldquo;{{own.shop_description}} &rdquo; 
+            <br><span style="float:right">{{own.my_shop.phone}}<br>{{own.my_shop.email}}</span>
+            </div>
+        </div> 
+        <div class="row">
+          <div class="title-section text-center col-12">
+            <h2 class="text-uppercase">Our Products</h2>
+          </div>
+        </div>         
+          
+         
+           
+        <div class="row" style="padding:10px">
+                {% for i in pdct %}
+                
+                  <div class="col-md-6" >
+                        <div style= "display:inline-block;padding: 55px;">
+                            <img src="{{i.image.url}}" alt="{{i.image.url}}" style="height: 200px; width: 200px">
+              
+                        </div>    
+
+                          <div style= "display:inline-block;vertical-align:middle;width:fit-content;margin-right: 90px;">
+                          
+                              <h6>{{i.name}}<br>
+                              Rate:-{{i.price}} Rs<br>
+                              Discount-Rate : {{i.discount}}<br>
+                              Stock-{{i.stck}}
+                              
+                              
+                              </h6>               
+                          </div>
+                            <div style= "display:inline-block;vertical-align:middle;width:fit-content;margin-left: 90pxpx;">
+                            
+                              
+                              <a href="myproduct/editproduct/{{i.id}}" style="border:2px solid red;background-color: green;color:white;font-size: larger;padding:4px;">Edit Product</a> <br><br><br>
+                              <a href="myproduct/deleteproduct/{{i.id}}" style="border:2px solid green;background-color:red;color:white;font-size: larger;padding:4px;" onclick="return(confirm('do you want to delete this item?'))">
+                                Delete Product</a>
+                              
+                              
+                              </h6>               
+                          </div>
+                      <hr>
+                  </div>
+             
+            {% endfor %} 
+                               
+          </div>
+         
+    
+       
+ 
+       
+
+      
+    </div>
+
+    
+   
+    </div>
+
+  </div>
+
+
+
+
+  {% endblock %}
+
+    

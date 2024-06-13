@@ -1,0 +1,182 @@
+{% extends 'shops\shp_base.html' %}
+
+{%block nav%}
+
+                   <li><a href="{% url 'index'%}">Home</a></li>
+                    <li><a href="{% url 'allshops'%}">Partners</a></li>
+
+                    <li><a href="{% url 'shop_extras' request.session.shpid.0 %}">My Profile</a></li>
+                    <li><a href="{% url 'myproduct'%}">Products</a></li>
+{%endblock%}
+
+
+{% block content %}
+{%load static%}
+
+
+<div class="container tm-mt-big tm-mb-big">
+  <div class="row">
+    <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+      <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="tm-block-title d-inline-block ">Edit Product</h2>
+          </div>
+        </div>
+        <div class="row tm-edit-product-row">
+          <div class="">
+            <form action="" method="post" class="tm-edit-product-form" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group mb-3">
+                <label
+                  for="name"
+                  >Product Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value="{{obj.name}}"
+                  class="form-control validate"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label
+                  for="description"
+                  >Description</label
+                >
+                <textarea name="description" class="form-control validate"
+                rows="3" cols="30" rows="10">{{obj.description}}</textarea>
+              
+              </div>
+              <div class="form-group mb-3">
+                <label
+                  for="description"
+                  >Features</label
+                >
+                <textarea name="features" class="form-control validate"
+                rows="3" cols="30" rows="10">{{obj.features}}</textarea>
+             
+              </div>
+              <div class="row">
+              <div class="form-group mb-3 col-sm-6">
+                <label
+                  for="category"
+                  >Category</label
+                >
+                <select name="category"
+                  class="custom-select tm-select-accounts"
+                  id="category"
+                >
+                <!-- <option value="selected">{{obj.categorychoices}}</option> -->
+                  <option value="a" {% if obj.category == "a" %}selected{% endif %}>Diabetescare</option>
+                  <option value="b" {% if obj.category == "b" %}selected{% endif %}>Healthcare</option>
+                  <option value="c" {% if obj.category == "c" %}selected{% endif %}>Painrelief</option>
+                  <option value="d" {% if obj.category == "d" %}selected{% endif %}>Ayurveda</option>
+                  <option value="e" {% if obj.category == "e" %}selected{% endif %}>Homeopathy</option>
+                  <option value="f" {% if obj.category == "f" %}selected{% endif %}>Dermacare</option>
+                  <option value="g" {% if obj.category == "g" %}selected{% endif %}>Oralcare</option>
+                  <option value="h" {% if obj.category == "h" %}selected{% endif %}>Babycare</option>
+                  <option value="i" {% if obj.category == "i" %}selected{% endif %}>Vitamins</option>
+                  <option value="j" {% if obj.category == "j" %}selected{% endif %}>Sports</option>
+                  <option value="k" {% if obj.category == "k" %}selected{% endif %}>Family</option>
+                  <option value="l" {% if obj.category == "l" %}selected{% endif %}>Supports</option>
+
+                </select>
+              </div>
+              <div class="form-group mb-3 col-xs-12 col-md-6">
+                <label
+                  for="expire_date"
+                  >Stock
+                </label>
+                <input
+                        id="expire_date"
+                        name="stck"
+                        type="text"
+                        value="{{obj.stck}}"
+                        class="form-control validate"
+                        data-large-mode="true"
+                        required
+                      />
+              </div>
+            </div>
+              <div class="row">
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                      <label
+                        for="expire_date"
+                        >Price
+                      </label>
+                      <input
+                        id="expire_date"
+                        name="price"
+                        type="text"
+                        value="{{obj.price}}"
+                        class="form-control validate"
+                        data-large-mode="true"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                      <label
+                        for="stock"
+                        >discount Price
+                      </label>
+                      <input
+                        id="stock"
+                        name="discount"
+                        type="text"
+                        value="{{obj.discount}}"
+                        class="form-control validate"
+                        required
+                      />
+                    </div>
+                    <div class="form-group mb-4 col-xs-12 col-sm-6">
+                      <label
+                        for="stock"
+                        >Product Image
+                      </label>
+                      <input
+                        type="file"
+                        class="form-control validate"
+                        
+                        style="padding-bottom: 50px;"
+                        name="img"                       
+                       >                       
+                      </div>
+                      <div class="form-group mb-4 col-xs-12 col-sm-6">
+                        <label
+                          for="stock"
+                          >Product-current Image
+                        </label>
+                                           
+
+                      <img src="{{obj.image.url}}" alt="" style="display:inline-block;height:100px;width:100px">
+                      </div>
+                    </div>
+              
+          </div>
+          <!-- <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+            <div class="tm-product-img-dummy mx-auto">
+              <i
+                class="fas fa-cloud-upload-alt tm-upload-icon"
+                onclick="document.getElementById('img').click();"
+              ></i>
+            </div> -->
+            
+            <!-- </div> -->
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    {% endblock %}

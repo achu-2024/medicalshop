@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block head1 %}
+{%load static%}
+
+<link rel="stylesheet" href="{% static 'css/login.css'%}">
+<script src="{% static 'js/login.js'%}"></script>
+
+{% endblock %}
+
+
+{%block nav%}
+                   <li><a href="{% url 'index'%}">Home</a></li>
+                    <li><a href="{% url 'shop'%}">Store</a></li>
+       
+                    <li><a href="{% url 'about'%}">About</a></li>
+                    <li><a href="{% url 'contact'%}">Contact</a></li>
+{%endblock%}
+
+{% block content %}
+{%load static%}
+
+<style>
+	.error-message {
+color: red;
+margin-top: 5px;
+}
+
+</style>
+
+
+
+<div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+		<div class="login-form">
+			
+			<div class="sign-in-htm">
+				<form action="login" method="post">
+					{% csrf_token %}
+
+				<div class="group">
+					<label for="user" class="label">Username</label>
+					<input id="user" type="text" class="input" name="username">
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Password</label>
+					<input id="pass" type="password" class="input" data-type="password" name="password">
+				</div>
+				<div class="group">
+					<input id="check" type="checkbox" class="check" checked>
+					<label for="check"><span class="icon"></span> Keep me Signed in</label>
+				</div>
+				
+				{% for msg in messages %}
+				{% if 'login' in msg.tags %}
+				<div class="group" style="text-align: center;">
+					<label for="pass" class="label" style="color: red;">{{msg}}</label>
+				</div>
+				{% endif %}
+				{% endfor %}
+				
+
+				<div class="group">
+					<input type="submit" class="button" value="Sign In">
+				</div>
+			</form>
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					<a href="{% url 'forgot' %}">Forgot Password?</a>
+				</div>
+			</div>
+		
+		
+			<div class="sign-up-htm">
+
+				<form action="signup" method="post">
+					{% csrf_token %}
+
+				<div class="group">
+					<label for="user" class="label">Name</label>
+					<input id="user" type="text" class="input" name="name">
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Email Address</label>
+					<input id="pass" type="text" class="input" name="email">
+				</div>
+				<div class="group">
+					<label for="phoneNumber" class="label">Phone</label>
+					<input id="phoneNumber" pattern="^[6-9]\d{9}$" type="text" class="input" name="phone" placeholder="phone-number" required>
+					<div id="phoneNumberError" class="error-message" style="display: none;"></div>
+				</div>
+				<div class="group">
+					<label for="user" class="label">Username</label>
+					<input id="user" type="text" class="input" name="username">
+				</div>
+				
+				<div class="group">
+					<label for="pass1" class="label">Password</label>
+					<input type="password" id="pass1" class="input" placeholder="Enter password" name="password" pattern="(?=.*[A-Z])(?=.*[~!@#$%^&*?]).{8,12}$" required>
+
+					<div id="passwordMessage" class="error-message"></div>
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Repeat Password</label>
+					<input id="pass" type="password" class="input" data-type="password" name="repassword">
+				</div>
+				{% for msg in messages %}
+				{% if 'signup' in msg.tags %}
+				<div class="group" style="text-align: center;">
+					<label for="pass" class="label" style="color: red;">{{msg}}</label>
+				</div>
+				{% endif %}
+				{% endfor %}
+				
+				<div class="group">
+					<input type="submit" class="button" value="Sign Up">
+				</div>
+			</form>
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					<a href=""><label for="tab-1">Already Member?</a>
+				</div>
+			</div>
+
+			
+		
+		</div>
+	</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const phoneNumberInput = document.getElementById('phoneNumber');
+    const phoneNumberError = document.getElementById('phoneNumberError');
+
+	const passwordInput = document.getElementById('pass1');
+    const passwordMessage = document.getElementById('passwordMessage');
+
+    phoneNumberInput.addEventListener('input', function() {
+        if (!phoneNumberInput.checkValidity()) {
+            phoneNumberError.textContent = 'enter a valid phone number having 10-digits.';
+            phoneNumberError.style.display = 'block';
+        } else {
+            phoneNumberError.style.display = 'none';
+        }
+    });
+
+    phoneNumberInput.addEventListener('invalid', function(event) {
+        event.preventDefault();
+        phoneNumberError.textContent = 'Please enter a valid phone number starting with 6/7/8/9.';
+        phoneNumberError.style.display = 'block';
+    });
+
+	passwordInput.addEventListener('input', function() {
+        if (!passwordInput.checkValidity()) {
+            passwordMessage.textContent = `Password Rules
+            atleast 1 uppercase 1 special character of any one of (~!@#$%^&*?)
+            length should be 8-12 characters.`;
+            passwordMessage.style.display = 'block';
+        } else {
+            passwordMessage.style.display = 'none';
+        }
+    });
+
+    passwordInput.addEventListener('invalid', function(event) {
+        event.preventDefault();
+        passwordMessage.textContent = 'should follow password rule1 uppercase letter, 1 special symbol, and is between 8 to 12 characters long';
+        passwordMessage.style.display = 'block';
+    });
+
+
+});
+
+
+
+
+</script>
+
+{% endblock %}
